@@ -1,12 +1,9 @@
 package models
 
 import (
-	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/x/crypto/bcrypt"
 )
 
 type Artifact struct {
