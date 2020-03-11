@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"./api/controllers"
 	"github.com/joho/godotenv"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/controllers"
 )
 
 func main() {

@@ -9,9 +9,9 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
-	"lsc-ecosys/ota-poc/otaku/api/middlewares"
-	"lsc-ecosys/ota-poc/otaku/api/models"
-	"lsc-ecosys/ota-poc/otaku/api/responses"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/middlewares"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/models"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/responses"
 )
 
 type App struct {

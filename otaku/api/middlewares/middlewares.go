@@ -1,8 +1,6 @@
 package middlewares
 
 import (
-	"context"
-	"lsc-ecosys/ota-poc/otaku/api/responses"
 	"net/http"
 )
 

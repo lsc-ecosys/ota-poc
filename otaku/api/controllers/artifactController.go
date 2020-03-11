@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
-	"lsc-ecosys/ota-poc/otaku/api/models"
-	"lsc-ecosys/ota-poc/otaku/api/responses"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/models"
+	"github.com/lsc-ecosys/ota-poc/otaku/api/responses"
 )
 
 // Get all artifacts directly
