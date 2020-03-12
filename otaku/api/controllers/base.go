@@ -10,7 +10,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"github.com/lsc-ecosys/ota-poc/otaku/api/middlewares"
-	"github.com/lsc-ecosys/ota-poc/otaku/api/models"
 	"github.com/lsc-ecosys/ota-poc/otaku/api/responses"
 )
 
@@ -20,10 +19,11 @@ type App struct {
 }
 
 // Initialize connection to db and wire up routes
-func (a *App) Initialize(DBHost, DBPort, DBUser, DBPassword, DBName string) {
+func (a *App) Initialize(DBHost, DBPort, DBUser, DBName, DBPassword string) {
 	var err error
-	DBURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s")
+	DBURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DBHost, DBPort, DBUser, DBName, DBPassword)
 
+	fmt.Println(DBURI)
 	a.DB, err = gorm.Open("postgres", DBURI)
 	if err != nil {
 		fmt.Printf("\n Cannot connect to DB %s", DBName)
@@ -32,7 +32,7 @@ func (a *App) Initialize(DBHost, DBPort, DBUser, DBPassword, DBName string) {
 		fmt.Printf("Successfully connected to DB %s", DBName)
 	}
 
-	a.DB.Debug().AutoMigrate(&models.Artifact{}) // auto migration
+	//a.DB.Debug().AutoMigrate(&models.Artifact{}) // auto migration
 
 	a.Router = mux.NewRouter().StrictSlash(true)
 	a.initializeRoutes()
@@ -42,7 +42,10 @@ func (a *App) initializeRoutes() {
 	a.Router.Use(middlewares.SetContentTypeMiddleware) // setting content-type
 
 	a.Router.HandleFunc("/", home).Methods("GET")
-	a.Router.HandleFunc("/artifacts", a.GetAllArtifacts).Method("GET")
+	a.Router.HandleFunc("/artifacts", a.GetAllArtifacts).Methods("GET")
+	a.Router.HandleFunc("/rollouts", a.GetAllRollouts).Methods("GET")
+
+	a.Router.HandleFunc("/rollout", a.CreateRollout).Methods("POST")
 }
 
 func (a *App) RunServer() {

@@ -14,12 +14,12 @@ func (a *App) GetAllArtifacts(w http.ResponseWriter, r *http.Request) {
 	afModel := models.Artifact{}
 	afs, err := afModel.GetAllArtifacts(a.DB)
 	if err != nil {
-		responses.ERROR(w, http.StatusBadRequest, err)
+		responses.ERROR(w, http.StatusInternalServerError, err)
 		return
 	}
 
 	resp["data"] = afs
-	response.JSON(w, http.StatusOK, resp)
+	responses.JSON(w, http.StatusOK, resp)
 
 	return
 }
