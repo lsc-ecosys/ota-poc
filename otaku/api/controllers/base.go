@@ -9,8 +9,8 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
-	"github.com/lsc-ecosys/ota-poc/otaku/api/middlewares"
-	"github.com/lsc-ecosys/ota-poc/otaku/api/responses"
+	"lsc-ecosys/ota-poc/otaku/api/middlewares"
+	"lsc-ecosys/ota-poc/otaku/api/responses"
 )
 
 type App struct {
@@ -43,9 +43,11 @@ func (a *App) initializeRoutes() {
 
 	a.Router.HandleFunc("/", home).Methods("GET")
 	a.Router.HandleFunc("/artifacts", a.GetAllArtifacts).Methods("GET")
-	a.Router.HandleFunc("/rollouts", a.GetAllRollouts).Methods("GET")
 
+	a.Router.HandleFunc("/rollouts", a.GetAllRollouts).Methods("GET")
 	a.Router.HandleFunc("/rollout", a.CreateRollout).Methods("POST")
+
+	//a.Router.HandleFunc("/artifact/check")
 }
 
 func (a *App) RunServer() {

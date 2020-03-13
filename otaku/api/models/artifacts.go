@@ -43,18 +43,18 @@ func (af *Artifact) SaveArtifact(db *gorm.DB) (*Artifact, error) {
 	return af, nil
 }
 
-func (af *Artifact) GetArtifact(db *gorm.DB) (*Artifact, error) {
+func (af *Artifact) GetArtifactByID(id int, db *gorm.DB) (*Artifact, error) {
 	artifact := &Artifact{}
-	if err := db.Debug().Table("artifacts").Where("artifact_id = ?", af.ArtifactID).First(artifact).Error; err != nil {
+	if err := db.Debug().Table("artifacts").Where("artifact_id = ?", id).First(artifact).Error; err != nil {
 		return nil, err
 	}
 
 	return artifact, nil
 }
 
-func (af *Artifact) GetAllArtifacts(db *gorm.DB) (*[]Artifact, error) {
+func GetAllArtifacts(db *gorm.DB) (*[]Artifact, error) {
 	artifacts := []Artifact{}
-	if err := db.Debug().Table("artifacts").Find(&artifacts).Error; err != nil {
+	if err := db.Debug().Order("version_major DESC, version_minor DESC, version_patch DESC").Table("artifacts").Find(&artifacts).Error; err != nil {
 		return &[]Artifact{}, err
 	}
 

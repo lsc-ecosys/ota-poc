@@ -5,15 +5,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/lsc-ecosys/ota-poc/otaku/api/models"
-	"github.com/lsc-ecosys/ota-poc/otaku/api/responses"
+	"lsc-ecosys/ota-poc/otaku/api/models"
+	"lsc-ecosys/ota-poc/otaku/api/responses"
 )
 
 func (a *App) GetAllRollouts(w http.ResponseWriter, r *http.Request) {
 	var resp = map[string]interface{}{"status": "success", "data": nil}
 
-	roModel := models.Rollout{}
-	rollouts, err := roModel.GetAllRollouts(a.DB)
+	rollouts, err := models.GetAllRollouts(a.DB)
 	if err != nil {
 		responses.ERROR(w, http.StatusInternalServerError, err)
 		return

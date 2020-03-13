@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"errors"
 	"strconv"
+	"strings"
 )
 
 // StrToInt8 converts from string to type int8
@@ -15,4 +17,21 @@ func StrToInt8(s string) (int8, error) {
 	numIn8 := int8(num)
 
 	return numIn8, nil
+}
+
+func ConvertVersionToInt8Array(version string) ([]int8, error) {
+	vStrArr := strings.Split(version, ".")
+	var versionInt8Array = []int8{}
+	if len(vStrArr) == 0 {
+		return []int8{}, errors.New("empty version")
+	}
+	for i, s := range vStrArr {
+		var err error
+		versionInt8Array[i], err = StrToInt8(s)
+		if err != nil {
+			return []int8{}, errors.New("conversion error")
+		}
+	}
+
+	return versionInt8Array, nil
 }

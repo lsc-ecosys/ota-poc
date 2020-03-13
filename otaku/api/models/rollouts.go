@@ -48,11 +48,21 @@ func (ro *Rollout) SaveRollout(db *gorm.DB) (*Rollout, error) {
 	return ro, nil
 }
 
-func (ro *Rollout) GetAllRollouts(db *gorm.DB) (*[]Rollout, error) {
-	var rollouts = []Rollout{}
-	if err := db.Debug().Table("rollouts").Find(&rollouts).Error; err != nil {
+func GetAllRollouts(db *gorm.DB) (*[]Rollout, error) {
+	var rollouts = &[]Rollout{}
+	if err := db.Debug().Table("rollouts").Find(rollouts).Error; err != nil {
 		return &[]Rollout{}, err
 	}
 
-	return &rollouts, nil
+	return rollouts, nil
+}
+
+func FindAvailableRollout(db *gorm.DB, version string) (*Rollout, error) {
+	var condition = map[string]interface{}{"version": version, "available": true}
+	var rollout = &Rollout{}
+	if err := db.Debug().First(rollout, condition).Error; err != nil {
+		return &Rollout{}, err
+	}
+
+	return rollout, nil
 }
