@@ -10,9 +10,9 @@ import (
 
 type Artifact struct {
 	ArtifactID   int64 `gorm:"primary_key"`
-	VersionMajor int
-	VersionMinor int
-	VersionPatch int
+	VersionMajor int8
+	VersionMinor int8
+	VersionPatch int8
 	ReleaseStage string
 	Conditions   postgres.Jsonb
 	CreatedAt    time.Time
@@ -26,9 +26,9 @@ func (af *Artifact) BeforeSave() error {
 }
 
 func (af *Artifact) Prepare() error {
-	af.VersionMajor = int(af.VersionMajor)
-	af.VersionMinor = int(af.VersionMinor)
-	af.VersionPatch = int(af.VersionPatch)
+	af.VersionMajor = int8(af.VersionMajor)
+	af.VersionMinor = int8(af.VersionMinor)
+	af.VersionPatch = int8(af.VersionPatch)
 	return nil
 }
 

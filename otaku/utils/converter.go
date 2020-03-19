@@ -19,6 +19,7 @@ func StrToInt8(s string) (int8, error) {
 	return numIn8, nil
 }
 
+// ConvertVersionToInt8Array split semVer string and return int8 array
 func ConvertVersionToInt8Array(version string) ([]int8, error) {
 	vStrArr := strings.Split(version, ".")
 	var versionInt8Array = []int8{}
@@ -34,4 +35,11 @@ func ConvertVersionToInt8Array(version string) ([]int8, error) {
 	}
 
 	return versionInt8Array, nil
+}
+
+// ConvertIntSemVerToString convert each section of semVer from int8 to string
+// And return concatenated version string
+func ConvertIntSemVerToString(mj, mn, pc int8) string {
+	verStr := strconv.Itoa(int(mj)) + "." + strconv.Itoa(int(mn)) + "." + strconv.Itoa(int(pc))
+	return verStr
 }

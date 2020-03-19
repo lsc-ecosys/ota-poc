@@ -47,7 +47,7 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/rollouts", a.GetAllRollouts).Methods("GET")
 	a.Router.HandleFunc("/rollout", a.CreateRollout).Methods("POST")
 
-	//a.Router.HandleFunc("/artifact/check")
+	a.Router.HandleFunc("/artifact/check", a.CheckUpdateByVersion).Methods("GET").Queries("version", "{version}")
 }
 
 func (a *App) RunServer() {
